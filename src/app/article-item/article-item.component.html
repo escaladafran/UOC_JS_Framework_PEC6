@@ -1,0 +1,63 @@
+<div class="article-card flex flex-col justify-center  bg-white border border-gray-200 rounded-lg shadow my-2 mx-2">
+    <img class="m w-72 h-48 m-7" [src]="article.imageUrl" alt="{{ article.name }}" />
+
+    <div class="description-container">
+        <h2 class='article-name text-xl font-semibold tracking-tight text-gray-900'>{{ article.name }}</h2>
+        <p class="mb-3" [ngClass]="getCssClass()">{{ article.isOnSale ? 'On Stock!' : 'Out of Stock' }}</p>
+
+        <div class="price-container">
+            <p class="text-4xl font-bold " [ngClass]="article.isOnSale ? 'text-gray-900' : 'text-gray-400'">${{ article.price }}</p>
+        </div>
+        <div [class]="article.isOnSale ? 'visible':'invisible'"  class="quantity-selection">
+                
+
+
+           
+
+            <button 
+                class="w-11 h-11 bg-gray-800 rounded-md flex items-center justify-center cursor-pointer transition-all duration-500"
+                (click)="increase()">
+                <span class="text-white">+</span>
+            </button>
+
+            <p id="quantity"> {{ article.quantityInCart }}</p>
+            <button 
+                class="w-11 h-11 rounded-md flex items-center justify-center cursor-pointer transition-all duration-500"
+                (click)="decrease()" 
+                [disabled]="article.quantityInCart === 0" 
+                [ngClass]="{
+                    'bg-gray-800': article.quantityInCart !== 0,   
+                    'bg-gray-300': article.quantityInCart === 0,     
+                    'cursor-not-allowed': article.quantityInCart === 0 
+                }">
+                <span [ngClass]="{
+                    'text-white':article.quantityInCart !== 0,
+                    'text-slate-400':article.quantityInCart == 0
+                }">-</span>
+            </button>
+        </div>
+    </div>
+    
+
+    
+</div>
+
+<!-- <button class="toggle-btn 
+    text-slate-600
+    bg-gray-200 
+    hover:bg-gray-700 
+    hover:text-white
+    focus:ring-4 
+    focus:ring-blue-300
+    font-normal
+    rounded-md 
+    text-xl
+    px-2.5 py-2.5 
+    me-2 mb-20 ms-2.5
+    dark:bg-blue-600 
+    dark:hover:bg-blue-700 
+    focus:outline-none 
+    dark:focus:ring-blue-800" 
+    (click)="article.isOnSale=!article.isOnSale">Toggle
+
+</button> -->

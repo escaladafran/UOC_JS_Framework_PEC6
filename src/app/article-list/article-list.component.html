@@ -1,0 +1,29 @@
+
+
+
+<app-navbar (viewSelected)="onViewSelected($event)"></app-navbar>
+
+<div [ngClass]="this.currentView === 'inicio' || this.currentView === 'articulos' ? 'block' : 'hidden'">
+
+    
+    <p class="mb-2 text-4xl font-bold tracking-tight text-gray-900 text-center my-5 mb-10   ">Article List</p>
+    
+    
+    <div  class="gridContainer" [ngClass]="{'hidden': this.currentView !=='inicio' && this.currentView !=='articulos'}">
+        
+        <div class="card" *ngFor="let item of articles"  TrackBy="trackItemId">
+            <app-article-item 
+            [article]="item"
+            (quantityChange)="onQuantityChange($event)">
+        </app-article-item>
+    </div>
+</div>
+
+</div>
+
+    <app-article-new-template [ngClass]="this.currentView === 'template' ? 'block' : 'hidden'"></app-article-new-template> 
+    <app-article-new-reactive [ngClass]="this.currentView === 'reactive' ? 'block' : 'hidden'"></app-article-new-reactive>
+
+
+
+

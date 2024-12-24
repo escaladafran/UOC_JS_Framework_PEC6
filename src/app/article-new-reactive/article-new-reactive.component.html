@@ -1,0 +1,84 @@
+
+
+    
+<div class="max-w-sm mt-12 mx-auto px-10 py-5 border border-gray-200 rounded-lg shadow">
+    
+    <!-- Bind al FormGroup. El bind a los FormControls se hace con la directiva [formControlName] creados en la clase -->
+    <form class="mb-1"  [formGroup]="myReactiveForm" >
+
+        <h1 class="mb-7 text-left text-2xl font-bold tracking-tight text-gray-900">New Article Reactive</h1>
+     
+           <div class="form-group mb-7">
+               <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"  for="">Article Name<span class="text-red-600"> *</span></label>
+               <input  formControlName="articleName" 
+                      class="form-control border border-gray-300   focus:border-indigo-500 text-gray-800 text-sm rounded-lg block w-full p-2.5" 
+                      [ngClass]="{
+                        'border-2 border-rose-500': articleName?.invalid && articleName?.touched
+                      }" 
+                      type="text" 
+                      placeholder="Name">
+    
+
+                      <div *ngIf="articleName?.invalid &&  (articleName?.touched) ">
+                        <small class="text-red-600 block mb-4 font-semibold" *ngIf="articleName?.hasError('required')">Filed is required</small>
+                        <small class="text-red-600 block mb-4 font-semibold" *ngIf="articleName?.hasError('forbidden')">{{articleName?.errors?.['forbidden']?.value}} is no allowed</small>
+                    </div>
+
+
+            </div>
+         
+            <div class="form-group mb-7">
+                <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Article Price<span class="text-red-600"> *</span></label>
+                <input formControlName="articlePrice" 
+                    class="form-control border border-gray-300 focus:border-indigo-500 text-gray-800 text-sm rounded-lg block w-full p-2.5"
+                    [ngClass]="{
+                        'border-2 border-rose-500': articlePrice?.invalid && articlePrice?.touched
+                      }"     
+                    type="number" 
+                    placeholder="Price €">
+
+                    <div *ngIf="articlePrice?.invalid &&  articlePrice?.touched">
+                        <small class="text-red-600 block mb-4 font-semibold" *ngIf="articlePrice?.hasError('required')">Filed is required</small>
+                        <small class="text-red-600 block mb-4 font-semibold" *ngIf="articlePrice?.hasError('min')"> price must be at least 0.1€</small>
+                    </div>
+
+                   
+            </div>
+    
+            <div class="form-group mb-7">
+                <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Image URL<span class="text-red-600"> *</span></label>
+                <input formControlName="imageUrl"
+                       class="form-control border border-gray-300 focus:border-indigo-500 text-gray-800 text-sm rounded-lg block w-full p-2.5"  
+                       type="text" 
+                       placeholder="Image URL">
+                       <div *ngIf="imageUrl?.invalid &&  imageUrl?.touched">
+                        <small class="text-red-600 block mb-4 font-semibold" *ngIf="imageUrl?.hasError('required')">Filed is required</small>
+                        <small class="text-red-600 block mb-4 font-semibold" *ngIf="imageUrl?.hasError('invalidPattern')">enter a valid URL</small>
+                    </div>
+            </div>  
+        
+            <div class="form-group mb-5">
+                <input formControlName="isOnSale"
+                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                    type="checkbox" 
+                    name="isOnSale" >
+                <label class="ms-2 text-sm font-medium text-gray-900 text-center dark:text-gray-300">On Sale</label>
+            </div>
+    
+            <div class="flex justify-center">
+                <button (click)="toConsole()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none items-center focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-7 py-2.5 text-center" type="submit">Submit</button> 
+            </div>
+
+
+            
+
+    </form>
+
+
+
+
+</div>
+
+
+
+
