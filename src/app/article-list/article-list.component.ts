@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import {Article} from '../models/articulo';
 import { ArticleItemComponent } from '../article-item/article-item.component';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ArticleNewTemplateComponent } from '../article-new-template/article-new-template.component';
 import { ArticleNewReactiveComponent } from '../article-new-reactive/article-new-reactive.component';
+import { ArticleService } from '../../services/article-service.service';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-article-list',
@@ -15,34 +17,38 @@ import { ArticleNewReactiveComponent } from '../article-new-reactive/article-new
 })
 
 
-export class ArticleListComponent {
-  articles: Article[] = [
-    { id: 1, name: 'Fender Custom Shop American Custom', imageUrl: 'https://fast-images.static-thomann.de/pics/bdb/_52/525037/16988847_800.jpg', price: 850, isOnSale: true, quantityInCart: 2 },
-    { id: 2, name: 'Gibson Les Paul', imageUrl: 'https://fast-images.static-thomann.de/pics/bdb/_59/591160/19286086_800.jpg', price: 2500, isOnSale: true, quantityInCart: 1 },
-    { id: 3, name: 'Fender Kurt Cobain Jaguar', imageUrl:'https://fast-images.static-thomann.de/pics/bdb/_33/330952/8419411_800.jpg', price: 750, isOnSale: false, quantityInCart: 0 },
-    { id: 4, name: 'Epiphone Casino Vintage Sunburst', imageUrl:'https://fast-images.static-thomann.de/pics/bdb/_56/568059/19102558_800.jpg', price: 649, isOnSale: false, quantityInCart: 0 }
-  ];
-
+export class ArticleListComponent{
+  //articles: Article[] = [];
+  articles$!: Observable<Article[]> ; // Observable para usar async pipe
   currentView:string = 'inicio';
 
- 
+
+  constructor(private articleService:ArticleService){
+      // Obtén los artículos directamente como un observable
+      this.articles$ = this.articleService.getArticles();
+  }
+
+
   onViewSelected(view:string){
   this.currentView = view;
  }
 
 
+
+
+
 // Esta función manejará el cambio de cantidad
-onQuantityChange(event: { articleId: number, newQuantity: number }) {
-  const article = this.articles.find(a => a.id === event.articleId);
-  if (article) {
-    article.quantityInCart = event.newQuantity;
-  }
+onQuantityChange(event: { articleId: number, newQuantity: number }): void {
+  this.articleService.changeQuantity(event.articleId, event.newQuantity).subscribe(updatedArticle => {
+    if (updatedArticle) {
+      console.log('Quantity updated:', updatedArticle);
+    }
+  });
 }
 
 //función que devuelve el elemento que cambia del array
 trackItemId(index: number, article: Article): number {
   return article.id;
 }
-
-
 }
+

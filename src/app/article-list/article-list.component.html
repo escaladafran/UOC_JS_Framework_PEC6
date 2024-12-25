@@ -11,7 +11,8 @@
     
     <div  class="gridContainer" [ngClass]="{'hidden': this.currentView !=='inicio' && this.currentView !=='articulos'}">
         
-        <div class="card" *ngFor="let item of articles"  TrackBy="trackItemId">
+        <!-- Usamos async pipe para suscribirnos automáticamente a articles$ --> 
+        <div class="card" *ngFor="let item of articles$ | async; trackBy: trackItemId">
             <app-article-item 
             [article]="item"
             (quantityChange)="onQuantityChange($event)">

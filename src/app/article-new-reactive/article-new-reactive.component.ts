@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import {FormBuilder,FormGroup,Validator, Validators} from '@angular/forms';
+import {FormBuilder,FormGroup, Validators} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CustomValidator } from '../custom-validator';
+import { CustomValidator } from '../../services/custom-validator';
+import { Article } from '../models/articulo';
+import { ArticleService } from '../../services/article-service.service';
+
 
 @Component({
   selector: 'app-article-new-reactive',
@@ -14,7 +17,7 @@ import { CustomValidator } from '../custom-validator';
 export class ArticleNewReactiveComponent {
 
   myReactiveForm: FormGroup;  
-Filed: any;
+  Filed: any;
 
 
 //getters
@@ -39,7 +42,7 @@ Filed: any;
 
 
 
-constructor(private fb: FormBuilder) {
+constructor(private fb: FormBuilder, private articleService: ArticleService) {
     //Inicializamos el FormGroup en el constructor
     this.myReactiveForm = this.fb.group({
       articleName: ['',[Validators.required,CustomValidator.NameArticleValidator(/^(prueba|test|mock|fake)$/i)]],              
@@ -51,11 +54,21 @@ constructor(private fb: FormBuilder) {
   }
 
 
+  createArticle(): void {
+    if (this.myReactiveForm.valid) {
+      const newArticle: Article = {
+        ...this.myReactiveForm.value,
+        id: 0, // El servicio asignará un ID único
+        quantityInCart: 0
+      };
+
+      this.articleService.create(newArticle).subscribe(article => {
+        console.log('Article created:', article);
+      });
 
 
-
-
-
+    }
+  }
 //metodo para mostrar por consola el objeto json 
 toConsole() {
   console.log('Article object:', this.myReactiveForm.value);

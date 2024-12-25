@@ -12,22 +12,13 @@ import { Article,ArticleQuantityChange } from '../models/articulo';
 })
 
 
-
-
 export class ArticleItemComponent {
 
   //Recibe el articulo como entrada
-   @Input() article: Article = {
-    id: 0,
-    name:'',
-    imageUrl:'',
-    price: 0,
-    isOnSale:false,
-    quantityInCart:0
-  };
+    @Input() article!: Article 
 
-// Emite los cambios de cantidad al padre
- @Output() quantityChange = new EventEmitter<ArticleQuantityChange>();
+  // Emite los cambios de cantidad al padre
+  @Output() quantityChange = new EventEmitter<ArticleQuantityChange>();
 
   getCssClass(): string {
     return this.article.isOnSale ? 'on-sale' : 'outOfStock';
