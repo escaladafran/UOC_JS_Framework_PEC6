@@ -27,9 +27,14 @@ export class ArticleService {
 
 
   changeQuantity(articleID: number, changeInQuantity: number): Observable<any> {
-    return this.http.patch<any>(`${this.apiUrl}/${articleID}`, { changeInQuantity });
+    // Para que el cambio de cantidad sea un número válido
+    if (changeInQuantity === null || isNaN(changeInQuantity)) {
+      changeInQuantity = 0; // Inicializa la cantidad en 0 si es inválida
+    }
+  
+    return this.http.patch<any>(`${this.apiUrl}/${articleID}`, {changeInQuantity});
   }
-
+  
 
 }
 

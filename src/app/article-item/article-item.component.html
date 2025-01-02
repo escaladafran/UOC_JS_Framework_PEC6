@@ -1,12 +1,12 @@
 <div class="article-card flex flex-col justify-center  bg-white border border-gray-200 rounded-lg shadow my-2 mx-2">
-    <img class="m w-72 h-48 m-7" [src]="article.imageUrl" alt="{{ article.name }}" />
+    <img class="m w-72 h-48 m-7" [src]="article.imageUrl | imageUrl" alt="{{ article.name }}" />
 
     <div class="description-container">
         <h2 class='article-name text-xl font-semibold tracking-tight text-gray-900'>{{ article.name }}</h2>
         <p class="mb-3" [ngClass]="getCssClass()">{{ article.isOnSale ? 'On Stock!' : 'Out of Stock' }}</p>
 
         <div class="price-container">
-            <p class="text-4xl font-bold " [ngClass]="article.isOnSale ? 'text-gray-900' : 'text-gray-400'">${{ article.price }}</p>
+            <p class="text-4xl font-bold " [ngClass]="article.isOnSale ? 'text-gray-900' : 'text-gray-400'">{{ article.price | currency:'EUR':'symbol':'1.2-2' }}</p>
         </div>
         <div [class]="article.isOnSale ? 'visible':'invisible'"  class="quantity-selection">
                 

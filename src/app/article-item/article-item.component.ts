@@ -1,12 +1,12 @@
 import { Component,Input,Output,EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Article,ArticleQuantityChange } from '../models/articulo';
-
+import { ImageUrlPipe } from '../../pipes/image-url.pipe'; // Importa el pipe
 
 @Component({
   selector: 'app-article-item',
   standalone: true, 
-  imports: [CommonModule], // Importa CommonModule para usar directivas como ngClass
+  imports: [CommonModule, ImageUrlPipe], // Importa CommonModule para usar directivas como ngClass
   templateUrl: './article-item.component.html',
   styleUrls: ['./article-item.component.css']
 })

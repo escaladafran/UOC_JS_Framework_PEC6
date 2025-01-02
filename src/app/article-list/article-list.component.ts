@@ -70,6 +70,8 @@ onSearch(event: Event): void {
 
    // Calcular el cambio relativo en cantidad
   const changeInQuantity = newQuantity - currentArticle.quantityInCart;
+  console.log('changeInQuantity:',changeInQuantity)
+
 
   // Llamar al servicio para actualizar la cantidad en el servidor
   this.articleService.changeQuantity(articleId, changeInQuantity).subscribe({
