@@ -15,7 +15,7 @@ import { Article,ArticleQuantityChange } from '../models/articulo';
 export class ArticleItemComponent {
 
   //Recibe el articulo como entrada
-    @Input() article!: Article 
+  @Input() article!: Article 
 
   // Emite los cambios de cantidad al padre
   @Output() quantityChange = new EventEmitter<ArticleQuantityChange>();
@@ -26,12 +26,16 @@ export class ArticleItemComponent {
 
 
   increase() {
-    this.quantityChange.emit({ articleId: this.article.id, newQuantity: this.article.quantityInCart + 1 });
+    this.quantityChange.emit({ 
+      articleId: this.article.id, 
+      newQuantity: this.article.quantityInCart + 1 });
   }
 
   decrease() {
     if (this.article.quantityInCart > 0) {
-      this.quantityChange.emit({ articleId: this.article.id, newQuantity: this.article.quantityInCart - 1 });
+      this.quantityChange.emit({ 
+        articleId: this.article.id, 
+        newQuantity: this.article.quantityInCart - 1 });
     }
   }
 

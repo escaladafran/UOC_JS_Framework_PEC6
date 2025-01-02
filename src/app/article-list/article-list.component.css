@@ -20,7 +20,7 @@ h2 {
 
     @media (min-width: 1024px) { /* Tamaño ancho (ejemplo: desktop) */
     .gridContainer {
-        grid-template-columns: repeat(4, 0.5fr); /* 4 columnas */
+        grid-template-columns: repeat(3, 0.5fr); /* 4 columnas */
     }
 }
 
