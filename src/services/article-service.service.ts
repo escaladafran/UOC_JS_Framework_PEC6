@@ -6,12 +6,11 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class ArticleService {
 
+export class ArticleService {
 
   private apiUrl = '/api/articles';
   constructor(private http: HttpClient) { }
-
 
 
   // Obtener artículos con un filtro opcional por nombre
