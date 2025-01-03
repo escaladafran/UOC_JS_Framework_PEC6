@@ -21,6 +21,7 @@ export class ArticleService {
 
 
   create(article: Article): Observable<any> {
+    console.log('Llamando al servidor con:', article);
     return this.http.post<any>(this.apiUrl, article);
   }
 
